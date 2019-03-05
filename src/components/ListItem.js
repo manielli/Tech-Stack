@@ -6,10 +6,12 @@ import * as actions from '../actions';
 
 class ListItem extends Component {
     renderDescription() {
-        if (this.props.library.id === this.props.selectedLibraryId) {
+        const { library, selectedLibraryId } = this.props;
+
+        if (library.id === selectedLibraryId) {
             return (
                 <Text>
-                    {this.props.library.description}
+                    {library.description}
                 </Text>
             );
         }
@@ -17,7 +19,7 @@ class ListItem extends Component {
     
     render() {
         const { titleStyle } = styles;
-        const { id, title } = this.props.library;
+        const { id, title } = this.props.library.item;
         
         return (
             <TouchableWithoutFeedback onPress={() => this.props.selectLibrary(id)} >
@@ -27,6 +29,7 @@ class ListItem extends Component {
                             {title}
                         </Text>
                     </CardSection>
+                    {this.renderDescription()}
                 </View>
             </TouchableWithoutFeedback>
         );
@@ -40,7 +43,7 @@ const styles = {
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
     return { selectedLibraryId: state.selectedLibraryId };
 }
 
